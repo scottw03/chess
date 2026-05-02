@@ -52,6 +52,23 @@ public class ChessPiece {
      *
      * @return Collection of valid moves
      */
+
+    public boolean viableDestination(ChessBoard board, ChessPosition endPosition) {
+        int row = endPosition.getRow();
+        int col = endPosition.getColumn();
+        if (row < 1 || row > 8 || col < 1 || col > 8){
+            return false;
+        }
+        ChessPiece target = board.getPiece(endPosition);
+        if (target == null) {
+            return true;
+        }
+        else {
+            return target.getTeamColor() != this.pieceColor;
+        }
+    }
+
+
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         ChessPiece piece = board.getPiece(myPosition);
         if (piece.getPieceType() == PieceType.KING) {
