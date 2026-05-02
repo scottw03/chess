@@ -1,7 +1,9 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a single chess piece
@@ -17,6 +19,20 @@ public class ChessPiece {
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
     this.pieceColor = pieceColor;
     this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ChessPiece that = (ChessPiece) o;
+        return pieceColor == that.pieceColor && type == that.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pieceColor, type);
     }
 
     /**
@@ -71,17 +87,72 @@ public class ChessPiece {
 
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         ChessPiece piece = board.getPiece(myPosition);
+        Collection<ChessMove> moves = new ArrayList<>();
         if (piece.getPieceType() == PieceType.KING) {
 
         }
         if (piece.getPieceType() == PieceType.QUEEN) {
-
+            int[][] directions = {
+                    {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {0, 1}, {-1, 0}, {0, -1}
+            };
+            for (int[] dir : directions) {
+                int row = myPosition.getRow();
+                int col = myPosition.getColumn();
+                while (true){
+                    row += dir[0];
+                    col += dir[1];
+                    ChessPosition newPos = new ChessPosition(row, col);
+                    if (!viableDestination(board, newPos)) {
+                        break;
+                    }
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if (board.getPiece(newPos) != null) {
+                        break;
+                    }
+                }
+            }
         }
         if (piece.getPieceType() == PieceType.ROOK) {
-
+            int[][] directions = {
+                    {1, 0}, {0, 1}, {-1, 0}, {0, -1}
+            };
+            for (int[] dir : directions) {
+                int row = myPosition.getRow();
+                int col = myPosition.getColumn();
+                while (true){
+                    row += dir[0];
+                    col += dir[1];
+                    ChessPosition newPos = new ChessPosition(row, col);
+                    if (!viableDestination(board, newPos)) {
+                        break;
+                    }
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if (board.getPiece(newPos) != null) {
+                        break;
+                    }
+                }
+            }
         }
         if (piece.getPieceType() == PieceType.BISHOP) {
-
+            int[][] directions = {
+                    {1, 1}, {1, -1}, {-1, 1}, {-1, -1}
+            };
+            for (int[] dir : directions) {
+                int row = myPosition.getRow();
+                int col = myPosition.getColumn();
+                while (true){
+                    row += dir[0];
+                    col += dir[1];
+                    ChessPosition newPos = new ChessPosition(row, col);
+                    if (!viableDestination(board, newPos)) {
+                        break;
+                    }
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                    if (board.getPiece(newPos) != null) {
+                        break;
+                    }
+                }
+            }
         }
         if (piece.getPieceType() == PieceType.KNIGHT) {
 
@@ -90,6 +161,6 @@ public class ChessPiece {
 
         }
 
-        return List.of();
+        return moves;
     }
 }
