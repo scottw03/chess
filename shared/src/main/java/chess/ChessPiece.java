@@ -155,7 +155,20 @@ public class ChessPiece {
             }
         }
         if (piece.getPieceType() == PieceType.KNIGHT) {
-
+            int[][] directions = {
+                    {1, 2}, {1, -2}, {-1, 2}, {-1, -2}, {2,1}, {2, -1}, {-2, 1}, {-2, -1}
+            };
+            for (int[] dir : directions) {
+                int row = myPosition.getRow();
+                int col = myPosition.getColumn();
+                row += dir[0];
+                col += dir[1];
+                ChessPosition newPos = new ChessPosition(row, col);
+                if (!viableDestination(board, newPos)) {
+                    continue;
+                }
+                moves.add(new ChessMove(myPosition, newPos, null));
+            }
         }
         if (piece.getPieceType() == PieceType.PAWN) {
 
