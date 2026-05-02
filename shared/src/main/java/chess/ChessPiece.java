@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class ChessPiece {
 
+    private final ChessGame.TeamColor pieceColor;
+    private final PieceType type;
+
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
     this.pieceColor = pieceColor;
     this.type = type;
@@ -51,9 +54,25 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         ChessPiece piece = board.getPiece(myPosition);
-        if (piece.getPieceType() == PieceType.BISHOP) {
-            return list.of(new ChessMove(new ChessPosition(1,2), new ChessPosition(1,8), null));
+        if (piece.getPieceType() == PieceType.KING) {
+
         }
+        if (piece.getPieceType() == PieceType.QUEEN) {
+
+        }
+        if (piece.getPieceType() == PieceType.ROOK) {
+
+        }
+        if (piece.getPieceType() == PieceType.BISHOP) {
+
+        }
+        if (piece.getPieceType() == PieceType.KNIGHT) {
+
+        }
+        if (piece.getPieceType() == PieceType.PAWN) {
+
+        }
+
         return List.of();
     }
 }
