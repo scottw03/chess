@@ -89,8 +89,22 @@ public class ChessPiece {
         ChessPiece piece = board.getPiece(myPosition);
         Collection<ChessMove> moves = new ArrayList<>();
         if (piece.getPieceType() == PieceType.KING) {
-
+            int[][] directions = {
+                    {1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}, {-1, 1}, {-1, 0}, {-1, -1}
+            };
+            for (int[] dir : directions) {
+                int row = myPosition.getRow();
+                int col = myPosition.getColumn();
+                row += dir[0];
+                col += dir[1];
+                ChessPosition newPos = new ChessPosition(row, col);
+                if (!viableDestination(board, newPos)) {
+                    continue;
+                }
+                moves.add(new ChessMove(myPosition, newPos, null));
+            }
         }
+
         if (piece.getPieceType() == PieceType.QUEEN) {
             int[][] directions = {
                     {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {1, 0}, {0, 1}, {-1, 0}, {0, -1}
