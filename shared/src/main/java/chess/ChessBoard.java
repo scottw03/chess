@@ -70,11 +70,22 @@ public class ChessBoard {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof ChessBoard)) return false;
+
         ChessBoard that = (ChessBoard) o;
-        return Objects.deepEquals(squares, that.squares);
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                ChessPiece thisPiece = this.squares[row][col];
+                ChessPiece thatPiece = that.squares[row][col];
+
+                if (!Objects.equals(thisPiece, thatPiece)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
