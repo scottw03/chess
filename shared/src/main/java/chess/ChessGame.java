@@ -60,8 +60,6 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
-        public void makeMove(ChessMove move)
-        throws InvalidMoveException {
             ChessPiece piece =
                     board.getPiece(move.getStartPosition());
             if (piece == null) {
