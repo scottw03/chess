@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -52,7 +53,6 @@ public class ChessGame {
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
 
     }
-
     /**
      * Makes a move in the chess game
      *
@@ -60,7 +60,35 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
-
+        public void makeMove(ChessMove move)
+        throws InvalidMoveException {
+            ChessPiece piece =
+                    board.getPiece(move.getStartPosition());
+            if (piece == null) {
+                throw new InvalidMoveException();
+            }
+            if (piece.getTeamColor() != teamTurn) {
+                throw new InvalidMoveException();
+            }
+            Collection<ChessMove> legalMoves =
+                    validMoves(move.getStartPosition());
+            if (!legalMoves.contains(move)) {
+                throw new InvalidMoveException();
+            }
+            ChessPiece movedPiece = piece;
+            if (move.getPromotionPiece() != null) {
+                movedPiece = new ChessPiece(
+                        piece.getTeamColor(),
+                        move.getPromotionPiece());
+            }
+            board.addPiece(move.getEndPosition(), movedPiece);
+            board.addPiece(move.getStartPosition(), null);
+            if (teamTurn == TeamColor.WHITE) {
+                teamTurn = TeamColor.BLACK;
+            } else {
+                teamTurn = TeamColor.WHITE;
+            }
+        }
     }
 
     /**
