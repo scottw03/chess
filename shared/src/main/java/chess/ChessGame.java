@@ -36,6 +36,25 @@ public class ChessGame {
     }
 
     /**
+     * Gets the current chessboard
+     *
+     * @return the chessboard
+     */
+    public ChessBoard getBoard() {
+        return board;
+    }
+}
+
+/**
+ * Sets this game's chessboard to a given board
+ *
+ * @param board the new board to use
+ */
+public void setBoard(ChessBoard board) {
+    this.board = board;
+}
+
+    /**
      * Enum identifying the 2 possible teams in a chess game
      */
     public enum TeamColor {
@@ -87,7 +106,6 @@ public class ChessGame {
                 teamTurn = TeamColor.WHITE;
             }
         }
-    }
 
     /**
      * Determines if the given team is in check
@@ -96,7 +114,28 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-
+        ChessPosition kingPos = findKing(teamColor);
+        TeamColor enemy;
+        if (teamColor == TeamColor.WHITE) {
+            enemy = TeamColor.BLACK;
+        } else {
+            enemy = TeamColor.WHITE;
+        }
+        for (int row = 1; row <= 8; row++) {
+            for (int col = 1; col <= 8; col++) {
+                ChessPosition pos = new ChessPosition(row, col);
+                ChessPiece piece = board.getPiece(pos);
+                if (piece != null && piece.getTeamColor() == enemy) {
+                    Collection<ChessMove> enemyMoves = piece.pieceMoves(board, pos);
+                    for (ChessMove move : enemyMoves) {
+                        if (move.getEndPosition().equals(kingPos)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -119,22 +158,3 @@ public class ChessGame {
     public boolean isInStalemate(TeamColor teamColor) {
 
     }
-
-    /**
-     * Sets this game's chessboard to a given board
-     *
-     * @param board the new board to use
-     */
-    public void setBoard(ChessBoard board) {
-        this.board = board;
-    }
-
-    /**
-     * Gets the current chessboard
-     *
-     * @return the chessboard
-     */
-    public ChessBoard getBoard() {
-        return board;
-    }
-}
