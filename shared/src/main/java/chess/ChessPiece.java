@@ -14,6 +14,7 @@ public class ChessPiece {
 
     private final ChessGame.TeamColor pieceColor;
     private final PieceType type;
+    private boolean hasMoved = false;
 
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
     this.pieceColor = pieceColor;
@@ -44,6 +45,14 @@ public class ChessPiece {
         KNIGHT,
         ROOK,
         PAWN
+    }
+
+    public boolean hasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean moved) {
+        hasMoved = moved;
     }
 
     /**
@@ -104,6 +113,28 @@ public class ChessPiece {
                 moves.add(new ChessMove(myPosition, newPos, null));
             }
         }
+            if (!this.hasMoved()) {
+                int row = myPosition.getRow();
+                ChessPosition rookPos = new ChessPosition(row, 8);
+                ChessPiece rook = board.getPiece(rookPos);
+                if (rook != null && rook.getPieceType() == PieceType.ROOK && !rook.hasMoved()) {
+                    ChessPosition f = new ChessPosition(row, 6);
+                    ChessPosition g = new ChessPosition(row, 7);
+                    if (board.getPiece(f) == null && board.getPiece(g) == null) {
+                        moves.add(new ChessMove(myPosition, g, null));
+                    }
+                }
+                rookPos = new ChessPosition(row, 1);
+                rook = board.getPiece(rookPos);
+                if (rook != null && rook.getPieceType() == PieceType.ROOK && !rook.hasMoved()) {
+                    ChessPosition b = new ChessPosition(row, 2);
+                    ChessPosition c = new ChessPosition(row, 3);
+                    ChessPosition d = new ChessPosition(row, 4);
+                    if (board.getPiece(b) == null && board.getPiece(c) == null && board.getPiece(d) == null) {
+                        moves.add(new ChessMove(myPosition, c, null));
+                    }
+                }
+            }
 
         if (piece.getPieceType() == PieceType.QUEEN) {
             int[][] directions = {
