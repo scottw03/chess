@@ -2,6 +2,7 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * A class that can manage a chess game, making moves on a board
@@ -54,12 +55,41 @@ public class ChessGame {
         this.board = board;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ChessGame chessGame = (ChessGame) o;
+        return Objects.equals(board, chessGame.board) && teamTurn == chessGame.teamTurn;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(board, teamTurn);
+    }
+
     /**
      * Enum identifying the 2 possible teams in a chess game
      */
     public enum TeamColor {
         WHITE,
         BLACK
+    }
+
+    private ChessBoard copyBoard(ChessBoard original) {
+        ChessBoard newBoard = new ChessBoard();
+        for (int row = 1; row <= 8; row++) {
+            for (int col = 1; col <= 8; col++) {
+                ChessPosition pos = new ChessPosition(row, col);
+                ChessPiece piece = original.getPiece(pos);
+                if (piece != null) {
+                    ChessPiece copiedPiece = new ChessPiece(piece.getTeamColor(), piece.getPieceType());
+                    newBoard.addPiece(pos, copiedPiece);
+                }
+            }
+        }
+        return newBoard;
     }
 
     /**
@@ -97,24 +127,20 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
-        ChessPiece piece =
-                board.getPiece(move.getStartPosition());
+        ChessPiece piece = board.getPiece(move.getStartPosition());
         if (piece == null) {
             throw new InvalidMoveException();
         }
         if (piece.getTeamColor() != teamTurn) {
             throw new InvalidMoveException();
         }
-        Collection<ChessMove> legalMoves =
-                validMoves(move.getStartPosition());
+        Collection<ChessMove> legalMoves = validMoves(move.getStartPosition());
         if (!legalMoves.contains(move)) {
             throw new InvalidMoveException();
         }
         ChessPiece movedPiece = piece;
         if (move.getPromotionPiece() != null) {
-            movedPiece = new ChessPiece(
-                    piece.getTeamColor(),
-                    move.getPromotionPiece());
+            movedPiece = new ChessPiece(piece.getTeamColor(), move.getPromotionPiece());
         }
         board.addPiece(move.getEndPosition(), movedPiece);
         board.addPiece(move.getStartPosition(), null);
