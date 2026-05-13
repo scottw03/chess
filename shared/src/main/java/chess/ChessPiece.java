@@ -96,7 +96,6 @@ public class ChessPiece {
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         ChessPiece piece = board.getPiece(myPosition);
         Collection<ChessMove> moves = new ArrayList<>();
-
         if (piece.getPieceType() == PieceType.KING) {
 
             int[][] directions = {
