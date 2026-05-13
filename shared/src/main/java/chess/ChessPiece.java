@@ -98,8 +98,11 @@ public class ChessPiece {
         Collection<ChessMove> moves = new ArrayList<>();
 
         if (piece.getPieceType() == PieceType.KING) {
+
             int[][] directions = {
-                    {1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}, {-1, 1}, {-1, 0}, {-1, -1}
+                    {1, 1}, {1, 0}, {1, -1},
+                    {0, 1}, {0, -1},
+                    {-1, 1}, {-1, 0}, {-1, -1}
             };
             for (int[] dir : directions) {
                 int row = myPosition.getRow();
@@ -112,7 +115,6 @@ public class ChessPiece {
                 }
                 moves.add(new ChessMove(myPosition, newPos, null));
             }
-        }
             if (!this.hasMoved()) {
                 int row = myPosition.getRow();
                 ChessPosition rookPos = new ChessPosition(row, 8);
@@ -121,7 +123,8 @@ public class ChessPiece {
                     ChessPosition f = new ChessPosition(row, 6);
                     ChessPosition g = new ChessPosition(row, 7);
                     if (board.getPiece(f) == null && board.getPiece(g) == null) {
-                        moves.add(new ChessMove(myPosition, g, null));
+                        moves.add(new ChessMove(myPosition, g, null
+                        ));
                     }
                 }
                 rookPos = new ChessPosition(row, 1);
@@ -135,6 +138,7 @@ public class ChessPiece {
                     }
                 }
             }
+        }
 
         if (piece.getPieceType() == PieceType.QUEEN) {
             int[][] directions = {
