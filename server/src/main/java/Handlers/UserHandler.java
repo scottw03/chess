@@ -52,5 +52,18 @@ public class UserHandler {
                     """.formatted(ex.getMessage()));
         }
     }
-
+    public void logout(Context ctx) {
+        try {
+            String authToken = ctx.header("authorization");
+            LogoutRequest request = new LogoutRequest(authToken);
+            service.logout(request);
+            ctx.status(200);
+            ctx.result("{}");
+        } catch (Exception ex) {
+            ctx.status(401);
+            ctx.result("""
+                    {"message":"Error: %s"}
+                    """.formatted(ex.getMessage()));
+        }
+    }
 }
