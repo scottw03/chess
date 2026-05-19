@@ -1,5 +1,3 @@
-package server;
-
 import io.javalin.*;
 
 public class Server {
