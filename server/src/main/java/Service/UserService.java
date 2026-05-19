@@ -1,10 +1,10 @@
-package service;
+package Service;
 
 import dataaccess.*;
 import model.AuthData;
 import model.UserData;
-import service.requests.RegisterRequest;
-import service.results.RegisterResult;
+import Service.requests.RegisterRequest;
+import Service.results.RegisterResult;
 
 import java.util.UUID;
 

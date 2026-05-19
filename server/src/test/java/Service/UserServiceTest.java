@@ -1,9 +1,9 @@
-package serviceTest;
+package Service;
 
 import dataaccess.*;
 import org.junit.jupiter.api.Test;
-import service.requests.RegisterRequest;
-import service.results.RegisterResult;
+import Service.requests.RegisterRequest;
+import Service.results.RegisterResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 

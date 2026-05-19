@@ -1,4 +1,4 @@
-package service.requests;
+package Service.requests;
 
 public record LogoutRequest(
         String authToken
