@@ -1,3 +1,5 @@
+//something is screwy here, I'll have to fix it later
+
 package passoff.server;
 
 import chess.ChessGame;
