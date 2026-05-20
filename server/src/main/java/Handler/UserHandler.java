@@ -1,4 +1,4 @@
-package Handlers;
+package Handler;
 
 import com.google.gson.Gson;
 import dataaccess.*;
@@ -13,7 +13,8 @@ import Service.results.RegisterResult;
 public class UserHandler {
     private final UserService service;
     private final Gson gson = new Gson();
-    public UserHandler() {
+    public UserHandler(UserService service) {
+        this.service = service;
         UserDAO userDAO = new MemoryUserDAO();
         AuthDAO authDAO = new MemoryAuthDAO();
         service = new UserService(userDAO, authDAO);
