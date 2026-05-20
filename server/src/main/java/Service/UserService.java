@@ -33,5 +33,4 @@ public class UserService {
         authDAO.createAuth(auth);
         return new RegisterResult(request.username(), token);
     }
-
 }
