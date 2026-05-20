@@ -21,7 +21,8 @@ public class UserService {
     }
     public RegisterResult register(RegisterRequest request)
         throws Exception {
-        if (request.username() == null || request.password() == null || request.email() == null) {
+        if (request.username() == null || request.password() == null || request.email() == null ||
+            request.username().isBlank() || request.password().isBlank() || request.email().isBlank()) {
             throw new Exception("bad request");
         }
         if (userDAO.getUser(request.username()) != null) {
@@ -37,7 +38,8 @@ public class UserService {
         return new RegisterResult(request.username(), token);
     }
     public LoginResult login(LoginRequest request) throws Exception {
-        if (request.username() == null || request.password() == null) {
+        if (request.username() == null || request.password() == null ||
+            request.username().isBlank() || request.password().isBlank()) {
             throw new Exception("bad request");
         }
         UserData user = userDAO.getUser(request.username());

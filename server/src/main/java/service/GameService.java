@@ -23,7 +23,7 @@ public class GameService {
         if (auth == null) {
             throw new Exception("unauthorized");
         }
-        if (request.gameName() == null) {
+        if (request.gameName() == null || request.gameName().isBlank()) {
             throw new Exception("bad request");
         }
         ChessGame game = new ChessGame();

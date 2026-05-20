@@ -1,7 +1,6 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataaccess.*;
 import io.javalin.http.Context;
 import service.GameService;
 import service.requests.CreateGameRequest;
@@ -15,35 +14,23 @@ public class GameHandler {
     private final Gson gson = new Gson();
     public GameHandler(GameService service) {
         this.service = service;
-        GameDAO gameDAO = new MemoryGameDAO();
-        AuthDAO authDAO = new MemoryAuthDAO();
-        service = new GameService(gameDAO, authDAO);
     }
-    public void createGame(Context ctx) {
-        try {
+    public void createGame(Context ctx) throws Exception {
             String authToken = ctx.header("authorization");
             CreateGameRequest body = gson.fromJson(ctx.body(), CreateGameRequest.class);
             CreateGameRequest request = new CreateGameRequest(body.gameName(), authToken);
             CreateGameResult result = service.createGame(request);
             ctx.status(200);
             ctx.result(gson.toJson(result));
-        } catch (Exception ex) {
-            handleException(ctx, ex);
-        }
     }
-    public void listGames(Context ctx) {
-        try {
+    public void listGames(Context ctx) throws Exception {
             String authToken = ctx.header("authorization");
             ListGamesRequest request = new ListGamesRequest(authToken);
             ListGamesResult result = service.listGames(request);
             ctx.status(200);
             ctx.result(gson.toJson(result));
-        } catch (Exception ex) {
-            handleException(ctx, ex);
-        }
     }
-    public void joinGame(Context ctx) {
-        try {
+    public void joinGame(Context ctx) throws Exception {
             String authToken = ctx.header("authorization");
             JoinGameRequest body =
                     gson.fromJson(
@@ -59,22 +46,5 @@ public class GameHandler {
             service.joinGame(request);
             ctx.status(200);
             ctx.result("{}");
-
-        } catch (Exception ex) {
-
-            handleException(ctx, ex);
-        }
-    }
-    private void handleException(Context ctx, Exception ex) {
-        String message = ex.getMessage();
-        switch (message) {
-            case "bad request" -> ctx.status(400);
-            case "unauthorized" -> ctx.status(401);
-            case "already taken" -> ctx.status(403);
-            default -> ctx.status(500);
-        }
-        ctx.result("""
-                {"message":"Error: %s"}
-                """.formatted(message));
     }
 }
