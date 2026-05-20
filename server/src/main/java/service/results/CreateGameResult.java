@@ -1,4 +1,4 @@
-package Service.results;
+package service.results;
 
 public record CreateGameResult(
         int gameID

@@ -1,12 +1,12 @@
-package Service;
+package service;
 
 import dataaccess.AuthDAO;
 import dataaccess.GameDAO;
 import model.AuthData;
 import model.GameData;
 import chess.ChessGame;
-import Service.requests.*;
-import Service.results.*;
+import service.requests.*;
+import service.results.*;
 
 import java.util.Collection;
 

@@ -1,14 +1,14 @@
-package Handler;
+package handler;
 
 import com.google.gson.Gson;
 import dataaccess.*;
 import io.javalin.http.Context;
-import Service.GameService;
-import Service.requests.CreateGameRequest;
-import Service.requests.JoinGameRequest;
-import Service.requests.ListGamesRequest;
-import Service.results.CreateGameResult;
-import Service.results.ListGamesResult;
+import service.GameService;
+import service.requests.CreateGameRequest;
+import service.requests.JoinGameRequest;
+import service.requests.ListGamesRequest;
+import service.results.CreateGameResult;
+import service.results.ListGamesResult;
 
 public class GameHandler {
     private final GameService service;

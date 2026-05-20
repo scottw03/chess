@@ -1,14 +1,14 @@
-package Handler;
+package handler;
 
 import com.google.gson.Gson;
 import dataaccess.*;
 import io.javalin.http.Context;
-import Service.UserService;
-import Service.requests.LoginRequest;
-import Service.requests.RegisterRequest;
-import Service.requests.LogoutRequest;
-import Service.results.LoginResult;
-import Service.results.RegisterResult;
+import service.UserService;
+import service.requests.LoginRequest;
+import service.requests.RegisterRequest;
+import service.requests.LogoutRequest;
+import service.results.LoginResult;
+import service.results.RegisterResult;
 
 public class UserHandler {
     private final UserService service;

@@ -1,7 +1,7 @@
-package Handler;
+package handler;
 
 import io.javalin.http.Context;
-import Service.ClearService;
+import service.ClearService;
 
 public class ClearHandler {
     private final ClearService service;

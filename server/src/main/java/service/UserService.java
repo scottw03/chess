@@ -1,13 +1,13 @@
-package Service;
+package service;
 
 import dataaccess.*;
 import model.AuthData;
 import model.UserData;
-import Service.requests.RegisterRequest;
-import Service.results.RegisterResult;
-import Service.requests.LoginRequest;
-import Service.requests.LogoutRequest;
-import Service.results.LoginResult;
+import service.requests.RegisterRequest;
+import service.results.RegisterResult;
+import service.requests.LoginRequest;
+import service.requests.LogoutRequest;
+import service.results.LoginResult;
 
 import java.util.UUID;
 
